@@ -1,148 +1,276 @@
+/* ============================================
+   Bloch-gömb szimulátor - Végleges Stílusok
+   ============================================ */
+
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --success: #27ae60;
+    --success-dark: #229954;
+    --danger: #e74c3c;
+    --danger-dark: #c0392b;
+    --bg-body: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-card: #ffffff;
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
+    --border-radius: 12px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
     margin: 0;
     padding: 20px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
 }
 
+/* Konténer */
 .container {
     max-width: 1400px;
     margin: 0 auto;
 }
 
+/* Fejléc */
 h1 {
     text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
-    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--text-main);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
+.header-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+/* Grid Layout - 3 oszlop egymás mellett */
 .row {
     display: flex;
+    flex-direction: row;
     gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    align-items: stretch;
 }
 
-.card {
+.col {
     flex: 1;
-    min-width: 300px;
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #3498db;
+    min-width: 320px;
 }
 
-    .card h3 {
-        color: #2c3e50;
-        margin-top: 0;
-    }
+/* Kártyák */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    border: none;
+    border-left: 6px solid var(--primary);
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    color: var(--text-main);
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Beviteli mezők */
 label {
     display: block;
-    margin: 10px 0 5px;
-    color: #34495e;
-    font-weight: 500;
-}
-
-input[type="number"],
-input[type="text"],
-input[type="color"],
-select {
-    width: 100%;
-    padding: 10px;
     margin-bottom: 8px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
 }
 
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Gombok */
 button {
-    background: #3498db;
-    color: white;
-    padding: 10px 15px;
+    padding: 10px 18px;
     border: none;
     border-radius: 6px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
     margin-right: 8px;
-    margin-top: 5px;
+    margin-bottom: 8px;
+    color: white;
+    background: var(--primary);
 }
 
-    button:hover {
-        background: #2980b9;
-    }
+button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
 
-    button.danger {
-        background: #e74c3c;
-    }
+button:active {
+    transform: translateY(0);
+}
 
-        button.danger:hover {
-            background: #c0392b;
-        }
+/* Gomb variációk */
+button.success {
+    background: var(--success);
+}
 
-    button.success {
-        background: #27ae60;
-    }
+button.success:hover {
+    background: var(--success-dark);
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+}
 
-        button.success:hover {
-            background: #229954;
-        }
+button.danger {
+    background: var(--danger);
+}
 
-.state-display {
-    background: #ecf0f1;
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 10px;
-    font-family: monospace;
+button.danger:hover {
+    background: var(--danger-dark);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+/* Állapot & Kapusor kijelzők */
+.state-display, .sequence {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: "Consolas", monospace;
     font-size: 0.9em;
+    color: #333;
+    border: 1px solid #e9ecef;
+    margin-top: 10px;
 }
 
 .sequence {
-    background: #ecf0f1;
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 10px;
-    font-family: monospace;
     max-height: 150px;
     overflow-y: auto;
+    border-left: 4px solid var(--primary);
 }
 
+/* Pillanatképek lista */
 .snapshots-list {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .snapshot-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 8px 0;
-    padding: 8px;
-    background: #ecf0f1;
+    background: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 8px;
     border-radius: 6px;
+    border: 1px solid #e9ecef;
 }
 
 .snapshot-dot {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    flex-shrink: 0;
+    margin-right: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.snapshot-text {
-    flex-grow: 1;
-    font-family: monospace;
-}
-
+/* Bloch-gömb kártya */
 .sphere-card {
     background: white;
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #27ae60;
+    box-shadow: var(--shadow);
+    margin-top: 25px;
+    border-left: 6px solid #8e44ad;
 }
 
-    .sphere-card h3 {
-        color: #2c3e50;
-        margin-top: 0;
+#sphere {
+    width: 100%;
+    height: 600px;
+    border-radius: 8px;
+    background: white;
+}
+
+/* Reszponzivitás */
+@media (max-width: 1024px) {
+    .row {
+        flex-wrap: wrap;
     }
+    
+    .col {
+        min-width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    .col {
+        width: 100%;
+    }
+    
+    #sphere {
+        height: 400px;
+    }
+}
+
+/* Plotly kontroll ikonok tisztább elrendezése */
+#sphere .modebar {
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin: 10px;
+    z-index: 100;
+}
+
+#sphere .modebar-btn {
+    margin: 2px;
+}
+
+/* Bloch Vector szöveg elválasztása */
+#sphere .legendtext {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Plotly toolbar jobb pozicionálása */
+.plotly .modebar {
+    top: 10px !important;
+    right: 10px !important;
+}
+
+/* Plotly legend pozíció fix */
+.legend {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px !important;
+}

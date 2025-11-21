@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloch-gömb szimulátor - Dokumentáció</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+        .meta {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .formula {
+            background: #ecf0f1;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            border-radius: 4px;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background: #3498db;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .checkmark {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #bdc3c7;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            h1 {
+                page-break-after: avoid;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            ul, p {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🌐 Bloch-gömb szimulátor</h1>
+    <h2 style="border: none; text-align: center; color: #666; font-size: 16px; margin: 0;">Kvantuminformatikai alkalmazások – Teljes projektdokumentáció</h2>
+
+    <div class="meta">
+        <strong>Készítette:</strong> Varga Marcell Simon és Borvendég Benedek<br>
+        <strong>Dátum:</strong> 2025. november 22.<br>
+        <strong>Technológia:</strong> Blazor WebAssembly | C# 8.0+ | Plotly.js 3D vizualizáció
+    </div>
+
+    <h2>1. Projektleírás</h2>
+    <p>A <strong>Bloch-gömb szimulátor</strong> egy teljes mértékben böngészőben futó interaktív webalkalmazás, amely lehetővé teszi az egyqubites kvantumállapotok szimulációját, vizualizációját és manipulációját. A program a Bloch-gömb geometriai reprezentációját használja az állapotok megjelenítésére.</p>
+
+    <h3>1.1 Feladat megfelelés</h3>
+    <ul>
+        <li><span class="checkmark">✓</span> <strong>Webalkalmazás:</strong> Böngészőben futó Blazor WebAssembly</li>
+        <li><span class="checkmark">✓</span> <strong>Qubit állapot kezelés:</strong> Komplex amplitúdók szimulációja</li>
+        <li><span class="checkmark">✓</span> <strong>Kvantumkapuk:</strong> 10+ logikai kapu (Pauli, Hadamard, forgatások)</li>
+        <li><span class="checkmark">✓</span> <strong>Kapu láncolat:</strong> Sorba fűzés és lépésenkénti vagy teljes alkalmazás</li>
+        <li><span class="checkmark">✓</span> <strong>Bloch-gömb:</strong> 3D interaktív vizualizáció Plotly.js-sel</li>
+        <li><span class="checkmark">✓</span> <strong>Állapotkezelés:</strong> Több állapot mentése és összehasonlítása</li>
+        <li><span class="checkmark">✓</span> <strong>Felhasználói élmény:</strong> Intuitív, professzionális UI</li>
+    </ul>
+
+    <h2>2. Funkciók és Használati Útmutató</h2>
+
+    <h3>2.1 Kezdőállapot beállítása</h3>
+    <p><strong>Gyors alapállapot kiválasztás:</strong> A legördülő menüből 6 előre definiált állapot közül lehet választani:</p>
+    <ul>
+        <li><code>|0⟩</code> – alapállapot (θ = 0°, φ = 0°)</li>
+        <li><code>|1⟩</code> – gerjesztett állapot (θ = 180°, φ = 0°)</li>
+        <li><code>|+⟩</code> – szuperponálás az X tengely mentén (θ = 90°, φ = 0°)</li>
+        <li><code>|-⟩</code> – szuperponálás a −X tengely mentén (θ = 90°, φ = 180°)</li>
+        <li><code>|+i⟩</code> – szuperponálás az Y tengely mentén (θ = 90°, φ = 90°)</li>
+        <li><code>|-i⟩</code> – szuperponálás a −Y tengely mentén (θ = 90°, φ = 270°)</li>
+    </ul>
+
+    <p><strong>Tetszőleges állapot beállítása:</strong> Az állapot a Bloch-gömbön az alábbi formulával reprezentálódik:</p>
+    <div class="formula">
+        |ψ⟩ = cos(θ/2)|0⟩ + e<sup>iφ</sup>sin(θ/2)|1⟩
+    </div>
+    <p>ahol <strong>θ (polár szög)</strong> 0 és π között, <strong>φ (azimut szög)</strong> 0 és 2π között lehet.</p>
+
+    <p><strong>Aktuális állapot megjelenítése:</strong> Az alkalmazás megjeleníti az állapot komplex amplitúdóit:</p>
+    <div class="formula">
+        |ψ⟩ = [α, β]<br>
+        α = cos(θ/2),   β = e<sup>iφ</sup> sin(θ/2)
+    </div>
+
+    <h3>2.2 Logikai kapuk és kapu-sor</h3>
+    <p><strong>Pauli-kapuk:</strong> I, X, Y, Z</p>
+    <p><strong>Speciális kapuk:</strong> H (Hadamard), S (Fáziskapu), T (π/8 fáziskapu)</p>
+    <p><strong>Forgatási kapuk:</strong> R<sub>x</sub>(θ), R<sub>y</sub>(θ), R<sub>z</sub>(θ)</p>
+
+    <p><strong>Kapuk alkalmazása:</strong></p>
+    <ul>
+        <li><strong>Lépésenkénti alkalmazás:</strong> Az "Következő alkalmazása" gomb az első kaput alkalmazza</li>
+        <li><strong>Teljes alkalmazás:</strong> Az "Összes alkalmazása" gomb az összes kaput egyszerre futtatja</li>
+    </ul>
+
+    <h3>2.3 Pillanatképek (State Snapshots)</h3>
+    <ul>
+        <li><strong>Azonosító:</strong> Az állapot neve</li>
+        <li><strong>Szín:</strong> Tetszőleges szín választása</li>
+        <li><strong>Mentés:</strong> Az aktuális állapot és annak Bloch-koordinátáit elmenti</li>
+        <li><strong>Összes törlése:</strong> Az összes mentett pillanatképet törli</li>
+    </ul>
+
+    <h3>2.4 Bloch-gömb 3D vizualizáció</h3>
+    <p><strong>Interakciók:</strong></p>
+    <ul>
+        <li><strong>Bal klikk + húzás:</strong> A gömb forgatása</li>
+        <li><strong>Görgetés:</strong> Nagyítás és kicsinyítés</li>
+        <li><strong>Jobb klikk + mozgás:</strong> 3D térben való mozgatás</li>
+        <li><strong>Egér lebegés:</strong> Az állapot Bloch-koordinátái megjelennek</li>
+    </ul>
+
+    <p><strong>Bloch-koordináták:</strong></p>
+    <div class="formula">
+        x = 2·Re(α*β),   y = 2·Im(α*β),   z = |α|² - |β|²
+    </div>
+
+    <h2>3. Technikai Implementáció</h2>
+
+    <h3>3.1 Architektura</h3>
+    <ul>
+        <li><strong>Frontend (Razor Components):</strong> Interaktív UI, valós idejű frissítés</li>
+        <li><strong>Backend (QuantumService):</strong> Kapu mátrixok, állapotmanipuláció</li>
+        <li><strong>Vizualizáció (Plotly.js):</strong> 3D gömb, interaktív kontrollerek</li>
+    </ul>
+
+    <h3>3.2 Kvantumállapot kezelés</h3>
+    <p>Minden qubit állapot 2D komplex vektorként reprezentálódik:</p>
+    <div class="formula">
+        |ψ⟩ = [α, β],   |α|² + |β|² = 1
+    </div>
+
+    <h3>3.3 Kapu alkalmazás</h3>
+    <div class="formula">
+        |ψ'⟩ = U|ψ⟩  (Mátrix-vektor szorzás)
+    </div>
+
+    <h2>4. Telepítés és Futtatás</h2>
+
+    <h3>4.1 Rendszerkövetelmények</h3>
+    <ul>
+        <li>Modern webböngésző (Chrome, Firefox, Edge, Safari)</li>
+        <li>JavaScript engedélyezve</li>
+        <li>WebAssembly támogatás</li>
+    </ul>
+
+    <h3>4.2 Futtatás</h3>
+    <p>Az alkalmazás teljes mértékben statikus – nincs szerver szükséges!</p>
+    <ul>
+        <li><strong>Opció 1: Helyi fájlokból</strong> – Nyisd meg az index.html fájlt webböngészőben</li>
+        <li><strong>Opció 2: GitHub Pages</strong> – Az alkalmazás elérhető a GitHub Pages-en</li>
+    </ul>
+
+    <h2>5. Felhasználási Esetek</h2>
+
+    <h3>5.1 Eset 1: |0⟩ → |1⟩ transzformáció az X kapuval</h3>
+    <ol>
+        <li>Kezdőállapot: θ = 0, φ = 0 (|0⟩)</li>
+        <li>Kapu: X</li>
+        <li>Alkalmazás: "Következő alkalmazása"</li>
+        <li>Eredmény: Az állapot a gömb tetejéről az aljára mozdul</li>
+    </ol>
+
+    <h3>5.2 Eset 2: Szuperponálás Hadamard kapuval</h3>
+    <ol>
+        <li>Kezdőállapot: θ = 0, φ = 0 (|0⟩)</li>
+        <li>Kapu: H (Hadamard)</li>
+        <li>Alkalmazás: "Következő alkalmazása"</li>
+        <li>Eredmény: |+⟩ = (|0⟩ + |1⟩)/√2 (az egyenlítőn)</li>
+    </ol>
+
+    <h2>6. Etikai és Szerzői Megjegyzések</h2>
+
+    <h3>6.1 Szerzőség</h3>
+    <ul>
+        <li><strong>Készítette:</strong> Varga Marcell Simon és Borvendég Benedek</li>
+        <li><strong>Dátum:</strong> 2025. november</li>
+        <li><strong>Technológia:</strong> Blazor WebAssembly, C# 8.0+, Plotly.js</li>
+    </ul>
+
+    <h3>6.2 Mesterséges intelligencia alkalmazása</h3>
+    <p>A projektfejlesztésben felhasználtam AI asszisztenciát:</p>
+    <ul>
+        <li>Dokumentáció írása</li>
+        <li>UI/UX javaslatok</li>
+    </ul>
+    <div class="highlight">
+        <strong>Minden kód szakmailag ellenőrzött, az algoritmusok helyesek, és a végeredmény teljes mértékben működőképes.</strong>
+    </div>
+
+    <h2>7. Függelék: Matematikai Összefoglalás</h2>
+
+    <h3>A.1 Qubit alapok</h3>
+    <p>A qubit egy kvantumrendszer alapegysége:</p>
+    <div class="formula">
+        |ψ⟩ = α|0⟩ + β|1⟩,   |α|² + |β|² = 1
+    </div>
+
+    <h3>A.2 Bloch-gömb reprezentáció</h3>
+    <p>Az (x, y, z) koordináták a qubit állapotokat reprezentálják:</p>
+    <div class="formula">
+        (x, y, z) = (2Re(α*β), 2Im(α*β), |α|² - |β|²)
+    </div>
+
+    <h3>A.3 Unitér transzformációk</h3>
+    <p>Kvantumműveletek unitér mátrixok által reprezentálódnak:</p>
+    <div class="formula">
+        |ψ'⟩ = U|ψ⟩,   ahol U†U = I
+    </div>
+
+    <div class="footer">
+        <p><strong>Dokumentáció vége</strong></p>
+        <p><em>A dokumentáció 2025. november 22-én készült.</em></p>
+        <p><strong>Bloch-gömb szimulátor © 2025</strong><br>
+        <strong>Varga Marcell Simon és Borvendég Benedek</strong></p>
+    </div>
+
+</div>
+
+<script>
+// Nyomtatás gomb a PDF-hez
+window.addEventListener('load', function() {
+    const printBtn = document.createElement('button');
+    printBtn.textContent = '🖨️ PDF-re nyomtatás (Nyomtató > PDF-ként mentés)';
+    printBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; z-index: 1000;';
+    printBtn.onclick = () => window.print();
+    document.body.appendChild(printBtn);
+});
+</script>
+
+</body>
+</html>

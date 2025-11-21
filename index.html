@@ -14,6 +14,7 @@
         <component type="typeof(App)" render-mode="WebAssembly" />
     </div>
 
+    <!-- Blazor WebAssembly runtime betöltése -->
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
         function drawBlochSphere(x, y, z, snapshots) {
@@ -78,5 +79,11 @@
             Plotly.newPlot('sphere', [sphere, vector, current, ...snaps], layout, { responsive: true });
         }
     </script>
+    <div style="text-align: center; padding: 40px 0; color: #6c757d; font-family: -apple-system, system-ui, sans-serif; border-top: 1px solid #dee2e6; margin-top: 40px;">
+    <p style="margin: 0; font-weight: 500;">Bloch-gömb szimulátor</p>
+    <p style="margin: 5px 0 0; font-size: 0.9em;">Készítette: <strong>Varga Marcell Simon</strong> és <strong>Borvendég Benedek</strong></p>
+    <p style="margin: 5px 0 0; font-size: 0.85em; color: #adb5bd;">Kvantuminformatikai alkalmazások házi feladat | 2025 ősz</p>
+</div>
+
 </body>
 </html>
